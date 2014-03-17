@@ -79,7 +79,7 @@ struct task_arg* mrb_value_to_task_arg(mrb_state *mrb, mrb_value v)
 
     case MRB_TT_SYMBOL:
         {
-            size_t len;
+            mrb_int len;
             const char* name = mrb_sym2name_len(mrb, v.value.sym, &len);
             arg->value.string.len = len;
             arg->value.string.ptr = mrb_malloc(mrb, len + 1);
