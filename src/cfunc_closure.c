@@ -91,7 +91,7 @@ cfunc_closure_initialize(mrb_state *mrb, mrb_value self)
     
     if (data->closure) {
         if (ffi_prep_cif(data->cif, FFI_DEFAULT_ABI, data->argc, return_ffi_type, data->arg_ffi_types) == FFI_OK) {
-            if (ffi_prep_closure_loc(data->closure, data->cif, cfunc_closure_call_binding, mrb_object(self), closure_pointer) == FFI_OK) {
+            if (ffi_prep_closure_loc(data->closure, data->cif, cfunc_closure_call_binding, mrb_obj_ptr(self), closure_pointer) == FFI_OK) {
                 set_cfunc_pointer_data((struct cfunc_type_data *)data, closure_pointer);
                 return self;
             }

@@ -166,7 +166,7 @@ cfunc_pointer_inspect(mrb_state *mrb, mrb_value self)
     struct cfunc_type_data *data = DATA_PTR(self);
     
     mrb_value type = mrb_funcall(mrb, mrb_obj_value(mrb_class(mrb, self)), "type", 0);
-    const char* classname = mrb_class_name(mrb, (struct RClass*)mrb_object(type));
+    const char* classname = mrb_class_name(mrb, (struct RClass*)mrb_obj_ptr(type));
     if(!classname) {
         classname = "Unknown pointer";
     }

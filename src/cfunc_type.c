@@ -66,7 +66,7 @@ mrb_value_to_mrb_ffi_type(mrb_state *mrb, mrb_value val)
         case MRB_TT_FALSE:
             return rclass_to_mrb_ffi_type(mrb, cfunc_state(mrb, NULL)->sint32_class);
         default:
-            return rclass_to_mrb_ffi_type(mrb, mrb_object(val)->c);
+            return rclass_to_mrb_ffi_type(mrb, mrb_obj_ptr(val)->c);
     }
 }
 
@@ -107,7 +107,7 @@ cfunc_type_initialize(mrb_state *mrb, mrb_value self)
     mrb_value val;
     int argc = mrb_get_args(mrb, "|o", &val);
     if(argc > 0) {
-        struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_object(self)->c);
+        struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_obj_ptr(self)->c);
         if(mft && mft->mrb_to_data) {
             mft->mrb_to_data(mrb, val, data);
         }
@@ -164,7 +164,7 @@ mrb_value
 cfunc_type_get_value(mrb_state *mrb, mrb_value self)
 {
     struct cfunc_type_data *data = (struct cfunc_type_data*)DATA_PTR(self);
-    struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_object(self)->c);
+    struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_obj_ptr(self)->c);
     return mft->data_to_mrb(mrb, data);
 }
 
@@ -176,7 +176,7 @@ cfunc_type_set_value(mrb_state *mrb, mrb_value self)
     mrb_get_args(mrb, "o", &val);
     
     struct cfunc_type_data *data = (struct cfunc_type_data*)DATA_PTR(self);
-    struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_object(self)->c);
+    struct mrb_ffi_type *mft = rclass_to_mrb_ffi_type(mrb, mrb_obj_ptr(self)->c);
     mft->mrb_to_data(mrb, val, data);
 
     return val;
